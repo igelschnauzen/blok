@@ -1,0 +1,9 @@
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgba(121, 121, 121);
+    font-size: 14px;
+    font-family: 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+}

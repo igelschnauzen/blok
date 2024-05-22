@@ -1,0 +1,126 @@
+$background: rgba(121, 121, 121);
+$outer-items: rgba(81, 81, 81);
+$inner-items: rgba(48, 50, 49);
+$dark-inner-items: rgba(20, 20, 20);
+$light-inner-items-and-font: rgba(243, 243, 243);
+$shadow: rgba(50, 50, 50, 0.1);
+$error: rgba(255, 92, 92);
+
+.header {
+  background-color: $outer-items;
+  z-index: +1 !important;
+  position: fixed;
+  grid-area: header;
+  display: block;
+  width: 100vw;
+  height: 70px;
+  box-shadow: 0 0 5px 5px $shadow;
+}
+
+.content {
+  position: relative;
+  top: 100px;
+  margin: auto;
+  background-color: $background;
+  height: 100%;
+  max-width: 1100px;
+  min-height: calc(100vh - 600px);
+  border-radius: 20px;
+}
+
+.login-page {
+  width: 100%;
+  min-height: calc(100vh - 600px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-block {
+  width: max-content;
+  min-height: max-content;
+  display: grid;
+
+  h1 {
+    text-align: center;
+    color: $light-inner-items-and-font;
+    font-weight: 100;
+    font-size: 32px;
+  }
+
+  img {
+    width: 100px;
+    justify-self: center;
+  }
+
+  a {
+    left: 10px;
+    color: #646cff;
+    text-decoration: none;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+.form-block {
+  width: 300px;
+  height: max-content;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background-color: $inner-items;
+  border-radius: 15px;
+  color: $light-inner-items-and-font;
+
+  input {
+    width: 274px;
+    height: 25px;
+    background-color: $outer-items;
+    border-radius: 5px;
+    border: 1px solid $dark-inner-items;
+    color: $light-inner-items-and-font;
+    margin: 2px 10px 2px 10px;
+    outline: none;
+    transition: 100ms border-color ease-out;
+
+    &:focus {
+      border-color: $light-inner-items-and-font;
+    }
+  }
+
+  button {
+    width: 280px;
+    height: 29px;
+    border-radius: 5px;
+    margin: 2px 10px 10px 10px;
+    border: 0;
+    background-color: $dark-inner-items;
+    color: $light-inner-items-and-font;
+    transition: all 800ms ease-out;
+
+    &:hover {
+      background-color: $light-inner-items-and-font;
+      color: $dark-inner-items;
+      cursor: pointer;
+    }
+  }
+
+  span {
+    margin: 15px;
+  }
+
+  div {
+    height: 70px;
+    margin-bottom: 10px;
+  }
+}
+
+.error-text {
+  color: $error;
+}
+
+.error-input {
+  border: 1px solid $error !important;
+}
