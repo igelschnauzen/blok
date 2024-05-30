@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
 
         if(user) return res.status(400).json("User already exists!");
         if(!name || !password) return res.status(400).json("All fields are required!");
-        if(!validator.isStrongPassword(password)) return res.status(400).json("Invalid password!");
+        //if(!validator.isStrongPassword(password)) return res.status(400).json("Invalid password!");
 
         //registration
         user = new userModel({name, password});
@@ -32,6 +32,13 @@ const registerUser = async (req, res) => {
         await user.save();
 
         const token = createToken(user._id); //jwt session
+        /*
+        res.set({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true
+        });
+        console.log(token);
+        */
         res.status(200).json({_id: user._id, name, token});
     } catch(error) {
         logError(error);
