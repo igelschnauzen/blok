@@ -3,6 +3,7 @@ import {Link, Outlet} from "react-router-dom";
 import logo from '../src/assets/logo.svg'
 import {useForm, SubmitHandler} from "react-hook-form"
 import {useState} from "react";
+import {useRegisterUserMutation} from "./API/loginAPI";
 
 type Inputs = {
     username: string
@@ -29,7 +30,7 @@ export function Login() {
         <div className={'login-block'}>
             <img src={logo} alt={'logo'}/>
             <h1>Sign in to Blok</h1>
-            {/*password or username error from server*/}
+            {/*todo password or username error from server*/}
             <div className={'form-block'}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
@@ -62,10 +63,14 @@ export function Registration() {
     const [usernameLengthError, setUsernameLengthError] = useState('')
     const [passwordLengthError, setPasswordLengthError] = useState('')
     const [passwordConfirmError, setPasswordConfirmError] = useState('')
+    const registerUser = useRegisterUserMutation()
 
     const onSubmit: SubmitHandler<Inputs> = async ({username, password}) => {
-        console.log(username, password)
+        const registrationData = {name: username, password: password}
+        const response = await registerUser(registrationData)
+        console.log(response)
     }
+
     watch(data => {
         if (data.username.length < 2) {
             setUsernameLengthError('Minimum length is 2')

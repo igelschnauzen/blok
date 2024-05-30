@@ -7,12 +7,12 @@ interface registrationFields {
 
 export const loginAPI = createApi({
     reducerPath: 'loginAPI',
-    baseQuery: fetchBaseQuery({baseUrl: '/'}),//get baseurl
+    baseQuery: fetchBaseQuery({baseUrl: '/'}),//write baseurl
     endpoints: (build) => ({
-        registerUser: build.mutation<registrationFields, void>({//strange type error
+        registerUser: build.mutation<registrationFields, any>({//there may be strange type error but it is probably ok
             query: (registrationData) => ({
-                url: '',//get url
-                method: '',//get method
+                url: '',//write endpoint
+                method: '',//write method
                 body: registrationData,
             }),
         }),
