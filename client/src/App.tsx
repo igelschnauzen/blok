@@ -63,7 +63,7 @@ export function Registration() {
     const [usernameLengthError, setUsernameLengthError] = useState('')
     const [passwordLengthError, setPasswordLengthError] = useState('')
     const [passwordConfirmError, setPasswordConfirmError] = useState('')
-    const registerUser = useRegisterUserMutation()
+    const [registerUser] = useRegisterUserMutation()
 
     const onSubmit: SubmitHandler<Inputs> = async ({username, password}) => {
         const registrationData = {name: username, password: password}
