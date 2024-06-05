@@ -6,12 +6,14 @@ require("dotenv").config();
 
 const userRoutes = require("./routes/userroutes");
 const chatRoutes = require("./routes/chatroutes");
+const messageRoutes = require("./routes/messageroutes");
 
 app.use(express.json());
 app.use(cors());
 
 app.use("/api/users", userRoutes);
 app.use("/api/chats", chatRoutes);
+app.use("/api/messages/", messageRoutes);
 
 const port = process.env.port || 3000;
 const uri = process.env.MONGO_ADDRESS;

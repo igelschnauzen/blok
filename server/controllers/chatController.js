@@ -8,7 +8,7 @@ const createChat = async(req, res) => {
             members: {$all: [firstId, secondId]}
         });
 
-        if(chat) return res.stauts(200).json(chat);
+        if(chat) return res.status(200).json(chat);
 
         const newChat = new chatModel({
             members: [firstId, secondId]
