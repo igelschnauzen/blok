@@ -16,7 +16,14 @@ export const loginAPI = createApi({
                 body: registrationData,
             }),
         }),
+        loginUser: build.mutation<registrationFields, any>({//there may be strange type error but it is probably ok
+            query: (loginData) => ({
+                url: '/users/login',//write endpoint
+                method: 'POST',//write method
+                body: loginData,
+            }),
+        }),
     }),
 })
 
-export const {useRegisterUserMutation} = loginAPI
+export const {useRegisterUserMutation, useLoginUserMutation} = loginAPI

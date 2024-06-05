@@ -3,7 +3,7 @@ import {Link, Outlet} from "react-router-dom";
 import logo from '../src/assets/logo.svg'
 import {useForm, SubmitHandler} from "react-hook-form"
 import {useState} from "react";
-import {useRegisterUserMutation} from "./API/loginAPI";
+import {useLoginUserMutation, useRegisterUserMutation} from "./API/loginAPI";
 
 type Inputs = {
     username: string
@@ -21,28 +21,36 @@ export function Login() {
         handleSubmit,
         formState: {errors},
     } = useForm<Inputs>()
+    const [loginUser] = useLoginUserMutation()
+    const [serverError, setServerError] = useState('')
 
     const onSubmit: SubmitHandler<Inputs> = async ({username, password}) => {
-        console.log(username, password)
+        const loginData = {name: username, password: password}
+        const response = await loginUser(loginData)
+        if (response.status == 200) {
+            localStorage.setItem('user', JSON.stringify(response.data))
+        } else if (response.status == 400) {
+            setServerError(response.data)
+        }
     }
 
     return <div className={'login-page'}>
         <div className={'login-block'}>
             <img src={logo} alt={'logo'}/>
             <h1>Sign in to Blok</h1>
-            {/*todo password or username error from server*/}
             <div className={'form-block'}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <span>Username</span>
                         <input
-                            className={errors.password && 'error-input'} {...register('username', {required: true})}/>
+                            className={(errors.username || serverError) && 'error-input'} {...register('username', {required: true})}/>
                         {errors.username && <span className={'error-text'}>This field is required</span>}
+                        {serverError && <span className={'error-text'}>{serverError}</span>}
                     </div>
                     <div>
                         <span>Password</span>
                         <input
-                            className={errors.password && 'error-input'} {...register('password', {required: true})}/>
+                            className={(errors.password || serverError) && 'error-input'} {...register('password', {required: true})}/>
                         {errors.password && <span className={'error-text'}>This field is required</span>}
                     </div>
                     <button>Sign in</button>
@@ -63,12 +71,17 @@ export function Registration() {
     const [usernameLengthError, setUsernameLengthError] = useState('')
     const [passwordLengthError, setPasswordLengthError] = useState('')
     const [passwordConfirmError, setPasswordConfirmError] = useState('')
+    const [serverError, setServerError] = useState('')
     const [registerUser] = useRegisterUserMutation()
 
     const onSubmit: SubmitHandler<Inputs> = async ({username, password}) => {
         const registrationData = {name: username, password: password}
         const response = await registerUser(registrationData)
-        console.log(response)
+        if (response.status == 200) {
+            localStorage.setItem('user', JSON.stringify(response.data))
+        } else if (response.status == 400) {
+            setServerError(response.data)
+        }
     }
 
     watch(data => {
@@ -78,6 +91,7 @@ export function Registration() {
             setUsernameLengthError('Maximum length is 30')
         } else {
             setUsernameLengthError('')
+            setServerError('')
         }
 
         if (data.password.length < 8 && data.password.length > 0) {
@@ -105,18 +119,20 @@ export function Registration() {
                     <div>
                         <span>Create username</span>
                         <input
-                            className={(errors.username || usernameLengthError) && 'error-input'} {...register('username', {required: true})}/>
+                            className={(errors.username || usernameLengthError || serverError) && 'error-input'} {...register('username', {required: true})}/>
                         {
                             errors.username &&
                             <span className={'error-text'}>This field is required</span>
                             || usernameLengthError &&
                             <span className={'error-text'}>{usernameLengthError}</span>
+                            || serverError &&
+                            <span className={'error-text'}>{serverError}</span>
                         }
                     </div>
                     <div>
                         <span>Create password</span>
                         <input
-                            className={(errors.password || passwordLengthError) && 'error-input'} {...register('password', {required: true})}/>
+                            className={(errors.password || passwordLengthError || serverError) && 'error-input'} {...register('password', {required: true})}/>
                         {
                             errors.password &&
                             <span className={'error-text'}>This field is required</span>
@@ -127,7 +143,7 @@ export function Registration() {
                     <div>
                         <span>Confirm password</span>
                         <input
-                            className={(errors.confirmPassword || passwordConfirmError) && 'error-input'} {...register('confirmPassword', {required: true})}/>
+                            className={(errors.confirmPassword || passwordConfirmError || serverError) && 'error-input'} {...register('confirmPassword', {required: true})}/>
                         {
                             errors.password &&
                             <span className={'error-text'}>This field is required</span>
@@ -142,10 +158,15 @@ export function Registration() {
     </div>
 }
 
+function Sidebar() {
+    return null;
+}
+
 function App() {
 
     return <>
         <Header/>
+        <Sidebar/>
         <div className={'content'}>
             <main>
                 <Outlet/>
