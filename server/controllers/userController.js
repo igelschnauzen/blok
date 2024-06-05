@@ -3,11 +3,6 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 
-const logError = (err) => {
-    console.log(err);
-    res.status(500).json(err);
-}
-
 const createToken = (_id) => { //session
     const jwtkey = process.env.JWT_SECRET_KEY;
     return jwt.sign({_id}, jwtkey, {expiresIn: "7d"});
@@ -41,8 +36,8 @@ const registerUser = async (req, res) => {
         */
         res.status(200).json({_id: user._id, name, token});
     } catch(error) {
-        logError(error);
-    }
+        console.log(error);
+        res.status(500).json(error);    }
 };
 
 const loginUser = async(req, res) => {
@@ -60,7 +55,8 @@ const loginUser = async(req, res) => {
         res.status(200).json({_id: user._id, name, token});
 
     } catch (error) {
-        logError(error);
+        console.log(error);
+        res.status(500).json(error);    
     }
 }
 
@@ -71,7 +67,8 @@ const findUser = async(req, res) => {
         const user = await userModel.findById(userId);
         res.status(200).json(user);
     } catch(error) {
-        logError(error);
+        console.log(error);
+        res.status(500).json(error);
     }
 }
 
@@ -80,7 +77,8 @@ const getUsers = async(req, res) => {
         const users = await userModel.find();
         res.status(200).json(users);
     } catch(error) {
-        logError(error);
+        console.log(error);
+        res.status(500).json(error);
     }
 }
 
