@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App, {Login, Registration} from './App.tsx'
+import App  from './App.tsx'
 import './index.css'
 import { store } from './store/store'
-import {createBrowserRouter, RouterProvider, createRoutesFromElements, Route} from "react-router-dom";
+import {createBrowserRouter, RouterProvider, createRoutesFromElements, Route, useNavigate} from "react-router-dom";
 import {Provider} from "react-redux";
+import {Login, Registration} from "./components/LoginAndRegistration/LoginAndRegistration";
 
 
 const router = createBrowserRouter(createRoutesFromElements(
