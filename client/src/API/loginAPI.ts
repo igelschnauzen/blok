@@ -7,7 +7,7 @@ interface registrationFields {
 
 export const loginAPI = createApi({
     reducerPath: 'loginAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3000/api'}),//write baseurl
+    baseQuery: fetchBaseQuery({baseUrl: 'http://5.35.100.88:3000/api'}),//write baseurl
     endpoints: (build) => ({
         registerUser: build.mutation<registrationFields, any>({//there may be strange type error but it is probably ok
             query: (registrationData) => ({
