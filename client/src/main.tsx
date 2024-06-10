@@ -6,12 +6,14 @@ import { store } from './store/store'
 import {createBrowserRouter, RouterProvider, createRoutesFromElements, Route, useNavigate} from "react-router-dom";
 import {Provider} from "react-redux";
 import {Login, Registration} from "./components/LoginAndRegistration/LoginAndRegistration";
+import {Chat} from "./components/Chat/Chat";
 
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<App/>}>
         <Route path="login" element={<Login/>}/>
         <Route path="registration" element={<Registration/>}/>
+        <Route path='' element={<Chat/>}/>
     </Route>))
 
 

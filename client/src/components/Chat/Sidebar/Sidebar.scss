@@ -1,0 +1,22 @@
+@use "../../../App";
+
+.sidebar {
+  position: relative;
+  top: 70px;
+  width: 400px;
+  height: 100vh;
+  background-color: App.$inner-items;
+  color: App.$light-inner-items-and-font;
+}
+
+.chat-selector {
+  height: 50px;
+  background-color: App.$inner-items;
+  font-weight: 500;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-top: 10px;
+  &:hover {
+    background-color: App.$dark-inner-items;
+  }
+}

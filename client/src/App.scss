@@ -11,19 +11,59 @@ $error: rgba(255, 92, 92);
   z-index: +1 !important;
   position: fixed;
   grid-area: header;
-  display: block;
+  grid-template-areas: 'menu logo';
+  grid-template-columns: calc(400px - 40px) auto; //todo resizable sidebar
+  display: grid;
   width: 100vw;
   height: 70px;
   box-shadow: 0 0 5px 5px $shadow;
+  img {
+    align-self: center;
+  }
+}
+
+.menu-button {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0);
+  width: 33px;
+  height: 33px;
+  border: 2px solid $light-inner-items-and-font;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: center;
+  margin-left: 15px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: $inner-items;
+  }
+}
+
+.chat-form {
+  display: flex;
+  width: auto;
+  background-color: $inner-items;
+  padding: 10px;
+  top: calc(100vh - 200px);
+  left: 400px;
+  form {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  input {
+
+  }
 }
 
 .content {
-  position: relative;
-  top: 100px;
+  position: absolute;
+  top: 70px;
   margin: auto;
   background-color: $background;
   height: 100%;
-  max-width: 1100px;
+  width: 100%;
   min-height: calc(100vh - 600px);
   border-radius: 20px;
 }

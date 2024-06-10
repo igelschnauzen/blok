@@ -6,4 +6,5 @@ body {
     font-size: 14px;
     font-family: 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
+    overflow: hidden;
 }
