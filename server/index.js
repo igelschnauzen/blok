@@ -8,8 +8,8 @@ const userRoutes = require("./routes/userroutes");
 const chatRoutes = require("./routes/chatroutes");
 const messageRoutes = require("./routes/messageroutes");
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/chats", chatRoutes);
