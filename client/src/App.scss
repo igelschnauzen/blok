@@ -12,14 +12,14 @@ $refs: #646cff;
   z-index: +1 !important;
   position: fixed;
   grid-area: header;
-  grid-template-areas: 'menu logo';
-  grid-template-columns: calc(400px - 50px) auto; //todo resizable sidebar
+  grid-template-columns: calc(400px) auto; //todo resizable sidebar
   display: grid;
   width: 100vw;
   height: 70px;
   box-shadow: 0 0 5px 5px $shadow;
   img {
     align-self: center;
+    justify-self: center;
   }
 }
 
@@ -46,9 +46,8 @@ $refs: #646cff;
   top: 70px;
   background-color: $background;
   height: calc(100vh - 70px);
-  width: 100%;
+  width: 2560px;
   min-height: calc(100vh - 600px);
-  border-radius: 20px;
 }
 
 .login-page {
