@@ -5,6 +5,7 @@ $dark-inner-items: rgba(20, 20, 20);
 $light-inner-items-and-font: rgba(243, 243, 243);
 $shadow: rgba(50, 50, 50, 0.1);
 $error: rgba(255, 92, 92);
+$refs: #646cff;
 
 .header {
   background-color: $outer-items;
@@ -12,7 +13,7 @@ $error: rgba(255, 92, 92);
   position: fixed;
   grid-area: header;
   grid-template-areas: 'menu logo';
-  grid-template-columns: calc(400px - 40px) auto; //todo resizable sidebar
+  grid-template-columns: calc(400px - 50px) auto; //todo resizable sidebar
   display: grid;
   width: 100vw;
   height: 70px;
@@ -40,29 +41,11 @@ $error: rgba(255, 92, 92);
   }
 }
 
-.chat-form {
-  display: flex;
-  width: auto;
-  background-color: $inner-items;
-  padding: 10px;
-  top: calc(100vh - 200px);
-  left: 400px;
-  form {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-  input {
-
-  }
-}
-
 .content {
   position: absolute;
   top: 70px;
-  margin: auto;
   background-color: $background;
-  height: 100%;
+  height: calc(100vh - 70px);
   width: 100%;
   min-height: calc(100vh - 600px);
   border-radius: 20px;
@@ -95,7 +78,7 @@ $error: rgba(255, 92, 92);
 
   a {
     left: 10px;
-    color: #646cff;
+    color: $refs;
     text-decoration: none;
 
     &:hover {
@@ -163,4 +146,17 @@ $error: rgba(255, 92, 92);
 
 .error-input {
   border: 1px solid $error !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: $inner-items;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $dark-inner-items;
+  border-radius: 10px;
 }

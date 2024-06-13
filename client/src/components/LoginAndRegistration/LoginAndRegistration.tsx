@@ -1,6 +1,6 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import {FC, useEffect, useState} from "react";
-import {useLoginUserMutation, useRegisterUserMutation} from "../../API/loginAPI";
+import {useLoginUserMutation, useRegisterUserMutation} from "../../API/loginApi";
 import logo from "../../assets/logo.svg";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
@@ -11,7 +11,7 @@ export const Registration: FC = () => {
         handleSubmit,
         watch,
         formState: {errors},
-    } = useForm<Inputs>()
+    } = useForm<LoginAndRegistrationInputs>()
     const [usernameLengthError, setUsernameLengthError] = useState('')
     const [passwordLengthError, setPasswordLengthError] = useState('')
     const [passwordConfirmError, setPasswordConfirmError] = useState('')
@@ -25,17 +25,19 @@ export const Registration: FC = () => {
         }
     })
 
-    const onSubmit: SubmitHandler<Inputs> = async ({username, password}) => {
+    const onSubmit: SubmitHandler<LoginAndRegistrationInputs> = async ({username, password}) => {
         const registrationData = {name: username, password: password}
         const response = await registerUser(registrationData)
-        if (response.status == 200) {
-            console.log(response.data)
-            localStorage.setItem('user', JSON.stringify(response.data))
+        if (response.error) {
+            if (response.error.status == 400) {
+                setServerError(response.error.data)
+            } else if (response.error.status == 500) {
+                setServerError('Some server error occurred')
+            }
+        } else {
+            const user:User = JSON.parse(response.data)
+            localStorage.setItem('user', JSON.stringify(user))
             window.location.reload()
-        } else if (response.error.status == 400) {
-            setServerError(response.error.data)
-        } else if (response.error.status == 500) {
-            setServerError('Some server error occurred')
         }
     }
 
@@ -126,7 +128,7 @@ export const Login: FC = () => {
         register,
         handleSubmit,
         formState: {errors},
-    } = useForm<Inputs>()
+    } = useForm<LoginAndRegistrationInputs>()
     const [serverError, setServerError] = useState('')
     const [loginUser] = useLoginUserMutation()
     const navigate = useNavigate()
@@ -137,17 +139,18 @@ export const Login: FC = () => {
         }
     })
 
-    const onSubmit: SubmitHandler<Inputs> = async ({username, password}) => {
+    const onSubmit: SubmitHandler<LoginAndRegistrationInputs> = async ({username, password}) => {
         const loginData = {name: username, password: password}
         const response = await loginUser(loginData)
-
-        if (response.status == 200) {
-            localStorage.setItem('user', JSON.stringify(response.data))
+        if (response.error) {
+            if (response.error.status == 400) {
+                setServerError(response.error.data)
+            } else if (response.error.status == 500) {
+                setServerError('Some server error occurred')
+            }
+        } else {
+            localStorage.setItem<User>('user', JSON.stringify(response.data))
             window.location.reload()
-        } else if (response.error.status == 400) {
-            setServerError(response.error.data)
-        } else if (response.error.status == 500) {
-            setServerError('Some server error occurred')
         }
     }
 

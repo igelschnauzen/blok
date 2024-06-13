@@ -1,0 +1,66 @@
+@use "../../App";
+
+.chat {
+  display: flex;
+  width: 100vw;
+  height: calc(100vh - 70px);
+}
+
+.chat-block {
+  display: grid;
+  grid-template-rows: auto 90px;
+  width: calc(100vw - 400px);
+  justify-items: center;
+  padding: 20px 30px 10px 30px;
+}
+
+.messages-block {
+  background: App.$inner-items;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.chat-form {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  align-self: flex-end;
+  align-items: center;
+  background-color: App.$inner-items;
+  padding: 10px;
+  border-radius: 3px;
+  form {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  input {
+    width: 100%;
+    height: 20px;
+    margin-right: 10px;
+    background-color: App.$light-inner-items-and-font;
+    border-radius: 2px;
+    border: 1px solid App.$dark-inner-items;
+    color: App.$dark-inner-items;
+    outline: none;
+    transition: 100ms border-color ease-out;
+
+    &::placeholder {
+      text-align: center;
+    }
+  }
+  button {
+    border-radius: 2px;
+    border: 0;
+    background-color: App.$dark-inner-items;
+    color: App.$light-inner-items-and-font;
+    transition: all 100ms ease-out;
+    &:hover {
+      background-color: App.$light-inner-items-and-font;
+      color: App.$dark-inner-items;
+      cursor: pointer;
+    }
+  }
+}
