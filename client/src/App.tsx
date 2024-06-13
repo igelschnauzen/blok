@@ -60,7 +60,7 @@ const Header: FC = () => {
                 }} className={'menu-button'}>
                     <img src={menu} alt={''}/>
                 </button>
-                <img src={logo} alt={''} style={{width: '40px'}}/>
+                <img src={logo} alt={''} style={{width: '45px'}}/>
                 <Drawer open={open} sx={{
                     '& .MuiDrawer-paper': {
                         bgcolor: 'rgba(20, 20, 20)',

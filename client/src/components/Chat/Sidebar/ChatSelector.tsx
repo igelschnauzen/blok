@@ -1,6 +1,6 @@
 import './Sidebar.scss'
 import {useFindUserQuery} from "../../../API/loginApi";
-import {Dispatch, FC, SetStateAction, useState} from "react";
+import {Dispatch, FC, SetStateAction} from "react";
 
 export const ChatSelector:FC = (props:{id: string, index: number, setActiveChat: Dispatch<SetStateAction<number>>, activeChat: number}) => {
     const {data: user, isFetching} = useFindUserQuery(props.id)

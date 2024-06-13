@@ -3,7 +3,6 @@
   z-index: 1 !important;
   position: fixed;
   grid-area: header;
-  grid-template-columns: 400px auto;
   display: grid;
   width: 100vw;
   height: 70px;
@@ -16,14 +15,15 @@
 
 .menu-button {
   display: flex;
+  position: absolute;
   background-color: rgba(0, 0, 0, 0);
   width: 33px;
   height: 33px;
-  border: 2px solid rgb(243, 243, 243);
+  border: 1px solid rgb(243, 243, 243);
   border-radius: 5px;
   cursor: pointer;
   align-self: center;
-  margin-left: 15px;
+  margin-left: 20px;
   padding: 0;
   align-items: center;
   justify-content: center;
@@ -143,9 +143,11 @@
 
 .sidebar {
   position: relative;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 100px);
+  border-radius: 10px;
   background-color: rgb(48, 50, 49);
   color: rgb(243, 243, 243);
+  margin: 20px 0 0 20px;
   flex-basis: 400px;
   flex-grow: 0;
   flex-shrink: 0;

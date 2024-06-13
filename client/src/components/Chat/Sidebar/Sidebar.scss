@@ -2,9 +2,11 @@
 
 .sidebar {
   position: relative;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 100px);
+  border-radius: 10px;
   background-color: App.$inner-items;
   color: App.$light-inner-items-and-font;
+  margin: 20px 0 0 20px;
   flex-basis: 400px;
   flex-grow: 0;
   flex-shrink: 0;

@@ -12,7 +12,6 @@ $refs: #646cff;
   z-index: +1 !important;
   position: fixed;
   grid-area: header;
-  grid-template-columns: calc(400px) auto; //todo resizable sidebar
   display: grid;
   width: 100vw;
   height: 70px;
@@ -25,14 +24,15 @@ $refs: #646cff;
 
 .menu-button {
   display: flex;
+  position: absolute;
   background-color: rgba(0, 0, 0, 0);
   width: 33px;
   height: 33px;
-  border: 2px solid $light-inner-items-and-font;
+  border: 1px solid $light-inner-items-and-font;
   border-radius: 5px;
   cursor: pointer;
   align-self: center;
-  margin-left: 15px;
+  margin-left: 20px;
   padding: 0;
   align-items: center;
   justify-content: center;
