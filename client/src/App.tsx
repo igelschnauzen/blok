@@ -1,32 +1,24 @@
 import './App.css'
 import {Outlet, useNavigate, useLocation} from "react-router-dom";
 import {FC, useEffect, useState} from "react"
-import {Sidebar} from "./components/Chat/Sidebar/Sidebar";
 import signOut from './assets/sign-out.svg'
 import menu from './assets/menu.svg'
 import logo from './assets/logo.svg'
 import {Box, Drawer, List, ListItem, ListItemText} from "@mui/material";
 
-const App = () => {
+const App:FC = () => {
     const navigate = useNavigate()
     const location = useLocation()
+
     useEffect(() => {
         if (!localStorage.getItem('user') && location.pathname === '/') {
             navigate('login')
         }
     })
-    const fn = () => {
-        if (localStorage.getItem('user')) {
-            return {left: '400px'}
-        } else {
-            return {position: 'relative'}
-        }
-    }
 
     return <>
         <Header/>
-        {localStorage.getItem('user') && <Sidebar/>}
-        <div className={'content'} style={fn()}>
+        <div className={'content'}>
             <main>
                 <Outlet/>
             </main>
@@ -36,25 +28,29 @@ const App = () => {
 
 const Header: FC = () => {
     const [open, setOpen] = useState(false)
-    const DrawerList = (
-        <Box>
-            <Box sx={{padding: '16px'}}>
-                <h1>{localStorage.getItem('user')}</h1>
+    let DrawerList
+    if (localStorage.getItem('user')) {
+        DrawerList = (
+            <Box>
+                <Box sx={{padding: '16px'}}>
+                    <h1>{JSON.parse(localStorage.getItem('user')).name}</h1>
+                    <h2>id: {JSON.parse(localStorage.getItem('user'))._id}</h2>
+                </Box>
+                <Box sx={{width: 'auto', cursor: 'pointer', '&:hover': {bgcolor: 'rgba(48, 50, 49)',},}} role="presentation"
+                     onClick={() => setOpen(false)}>
+                    <List>
+                        <ListItem onClick={() => {
+                            localStorage.clear()
+                            location.reload()
+                        }}>
+                            <img src={signOut} alt={''} style={{marginRight: '10px'}}/>
+                            <ListItemText primary={'Sign out'}/>
+                        </ListItem>
+                    </List>
+                </Box>
             </Box>
-            <Box sx={{width: 250, cursor: 'pointer', '&:hover': {bgcolor: 'rgba(48, 50, 49)',},}} role="presentation"
-                 onClick={() => setOpen(false)}>
-                <List>
-                    <ListItem onClick={() => {
-                        localStorage.clear()
-                        location.reload()
-                    }}>
-                        <img src={signOut} alt={''} style={{marginRight: '10px'}}/>
-                        <ListItemText primary={'Sign out'}/>
-                    </ListItem>
-                </List>
-            </Box>
-        </Box>
-    );
+        );
+    }
 
     return <header className={'header'}>
         {localStorage.getItem('user') &&

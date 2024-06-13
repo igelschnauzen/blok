@@ -1,4 +1,4 @@
-interface Inputs {
+interface LoginAndRegistrationInputs {
     username: string
     password: string
     confirmPassword: string
@@ -10,4 +10,32 @@ interface Chat {
 
 interface MessageInput {
     message: string
+}
+
+interface NewChatInput {
+    newChat: string
+}
+
+interface User {
+    _id: number
+    name: string
+    token: string
+}
+
+interface chatIds {
+    firstId: string
+    secondId: string
+}
+
+interface registrationFields {
+    name: string
+    password: string
+}
+
+interface UserChat {
+    createdAt: string
+    members: string[]
+    updatedAt: string
+    __v: 0
+    _id: string
 }
