@@ -15,9 +15,7 @@
   margin: auto;
   background-color: rgb(121, 121, 121);
   height: 100%;
-  max-width: 1100px;
   min-height: calc(100vh - 600px);
-  border-radius: 20px;
 }
 
 .login-page {

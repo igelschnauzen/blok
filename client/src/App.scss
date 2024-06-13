@@ -12,27 +12,27 @@ $refs: #646cff;
   z-index: +1 !important;
   position: fixed;
   grid-area: header;
-  grid-template-areas: 'menu logo';
-  grid-template-columns: calc(400px - 50px) auto; //todo resizable sidebar
   display: grid;
   width: 100vw;
   height: 70px;
   box-shadow: 0 0 5px 5px $shadow;
   img {
     align-self: center;
+    justify-self: center;
   }
 }
 
 .menu-button {
   display: flex;
+  position: absolute;
   background-color: rgba(0, 0, 0, 0);
   width: 33px;
   height: 33px;
-  border: 2px solid $light-inner-items-and-font;
+  border: 1px solid $light-inner-items-and-font;
   border-radius: 5px;
   cursor: pointer;
   align-self: center;
-  margin-left: 15px;
+  margin-left: 20px;
   padding: 0;
   align-items: center;
   justify-content: center;
@@ -46,9 +46,8 @@ $refs: #646cff;
   top: 70px;
   background-color: $background;
   height: calc(100vh - 70px);
-  width: 100%;
+  width: 2560px;
   min-height: calc(100vh - 600px);
-  border-radius: 20px;
 }
 
 .login-page {
