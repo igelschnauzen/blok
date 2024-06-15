@@ -17,7 +17,7 @@
 .chat-selector {
   height: 50px;
   background-color: App.$inner-items;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   padding-left: 20px;
   padding-top: 10px;
@@ -40,6 +40,9 @@
   display: grid;
   color: App.$refs;
   text-align: center;
+  form {
+    display: grid;
+  }
   div {
     width: max-content;
     justify-self: center;
@@ -50,6 +53,7 @@
   }
   input {
     background-color: App.$light-inner-items-and-font;
+    justify-self: center;
     width: 300px;
     border-radius: 4px;
     border: 1px solid App.$dark-inner-items;

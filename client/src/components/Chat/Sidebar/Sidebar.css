@@ -57,7 +57,7 @@
 .login-block h1 {
   text-align: center;
   color: rgb(243, 243, 243);
-  font-weight: 100;
+  font-weight: normal;
   font-size: 32px;
 }
 .login-block img {
@@ -158,7 +158,7 @@
 .chat-selector {
   height: 50px;
   background-color: rgb(48, 50, 49);
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   padding-left: 20px;
   padding-top: 10px;
@@ -183,6 +183,9 @@
   color: #646cff;
   text-align: center;
 }
+.start-new-dialog-block form {
+  display: grid;
+}
 .start-new-dialog-block div {
   width: max-content;
   justify-self: center;
@@ -193,6 +196,7 @@
 }
 .start-new-dialog-block input {
   background-color: rgb(243, 243, 243);
+  justify-self: center;
   width: 300px;
   border-radius: 4px;
   border: 1px solid rgb(20, 20, 20);

@@ -57,7 +57,7 @@
 .login-block h1 {
   text-align: center;
   color: rgb(243, 243, 243);
-  font-weight: 100;
+  font-weight: normal;
   font-size: 32px;
 }
 .login-block img {
