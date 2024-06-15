@@ -1,26 +1,35 @@
 import './Sidebar.scss'
 import {useCreateChatMutation, useFindUserChatsQuery} from "../../../API/chatApi";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {FC, useState} from "react";
+import {Dispatch, FC, SetStateAction, useState} from "react";
 import {ChatSelector} from "./ChatSelector";
 
-export const Sidebar: FC = () => {
+export const Sidebar: FC = (props:{newChat: boolean, setNewChat: Dispatch<SetStateAction<boolean>>, inputRef: HTMLInputElement}) => {
     const {
         register,
         handleSubmit,
+        watch
     } = useForm<NewChatInput>()
     const [createNewChat] = useCreateChatMutation()
     const {data: data, refetch: refetchUserChats} = useFindUserChatsQuery(JSON.parse(localStorage.getItem('user'))._id)
     const chats: UserChat[] = data
-    const [newChat, setNewChat] = useState(false)
     const [activeChat, setActiveChat] = useState<number>()
+    const [serverError, setServerError] = useState('')
 
     const onSubmit: SubmitHandler<NewChatInput> = async (formData) => {
         const newChatData = {firstId: JSON.parse(localStorage.getItem('user'))._id, secondId: formData.newChat}
-        setNewChat(false)
-        await createNewChat(newChatData)
-        await refetchUserChats()
+
+        const response = await createNewChat(newChatData)
+        if (response.error) {
+            setServerError('Wrong id!')
+        } else {
+            props.setNewChat(false)
+            props.inputRef.current.focus()
+            await refetchUserChats()
+        }
     }
+
+    watch(data => setServerError(''))
 
     return <aside className={'sidebar'}>
         {chats?.map((c, i) => {
@@ -29,13 +38,14 @@ export const Sidebar: FC = () => {
         })}
         <div className={'start-new-dialog-block'}>
             <div onClick={() => {
-                setNewChat(prevState => !prevState)
+                props.setNewChat(prevState => !prevState)
             }}>
                 Start new dialog
             </div>
             {
-                newChat && <form onSubmit={handleSubmit(onSubmit)}>
-                    <input placeholder={'write id'} {...register('newChat', {required: true})}/>
+                props.newChat && <form onSubmit={handleSubmit(onSubmit)}>
+                    <input className={serverError && 'error-input'} placeholder={'write id'} {...register('newChat', {required: true})}/>
+                    {serverError && <div className={'error-text'}>{serverError}</div>}
                 </form>
             }
         </div>
