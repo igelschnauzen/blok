@@ -35,8 +35,7 @@ export const Registration: FC = () => {
                 setServerError('Some server error occurred')
             }
         } else {
-            const user:User = JSON.parse(response.data)
-            localStorage.setItem('user', JSON.stringify(user))
+            localStorage.setItem('user', JSON.stringify(response.data))
             window.location.reload()
         }
     }
@@ -71,7 +70,7 @@ export const Registration: FC = () => {
         <div className={'login-block'}>
             <img src={logo} alt={'logo'}/>
             <h1>Sign up to Blok</h1>
-            <div className={'form-block'}>
+            <div className={'login-page-form-block'}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <span>Create username</span>
@@ -149,7 +148,7 @@ export const Login: FC = () => {
                 setServerError('Some server error occurred')
             }
         } else {
-            localStorage.setItem<User>('user', JSON.stringify(response.data))
+            localStorage.setItem('user', JSON.stringify(response.data))
             window.location.reload()
         }
     }
@@ -158,7 +157,7 @@ export const Login: FC = () => {
         <div className={'login-block'}>
             <img src={logo} alt={'logo'}/>
             <h1>Sign in to Blok</h1>
-            <div className={'form-block'}>
+            <div className={'login-page-form-block'}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <span>Username</span>

@@ -22,16 +22,6 @@ interface User {
     token: string
 }
 
-interface chatIds {
-    firstId: string
-    secondId: string
-}
-
-interface registrationFields {
-    name: string
-    password: string
-}
-
 interface UserChat {
     createdAt: string
     members: string[]
