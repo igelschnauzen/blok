@@ -5,7 +5,7 @@ $dark-inner-items: rgba(20, 20, 20);
 $light-inner-items-and-font: rgba(243, 243, 243);
 $shadow: rgba(50, 50, 50, 0.1);
 $error: rgba(255, 92, 92);
-$refs: #646cff;
+$refs: rgba(100, 108, 255);
 
 .header {
   background-color: $outer-items;
@@ -16,126 +16,276 @@ $refs: #646cff;
   width: 100vw;
   height: 70px;
   box-shadow: 0 0 5px 5px $shadow;
+
+  .menu-button {
+    display: flex;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0);
+    width: 33px;
+    height: 33px;
+    border: 1px solid $light-inner-items-and-font;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    margin-left: 20px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $inner-items;
+    }
+  }
+
   img {
+    width: 25px;
     align-self: center;
     justify-self: center;
   }
 }
 
-.menu-button {
-  display: flex;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0);
-  width: 33px;
-  height: 33px;
-  border: 1px solid $light-inner-items-and-font;
-  border-radius: 5px;
-  cursor: pointer;
-  align-self: center;
-  margin-left: 20px;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-  &:hover {
-    background-color: $inner-items;
-  }
-}
-
 .content {
-  position: absolute;
   top: 70px;
+  position: absolute;
   background-color: $background;
   height: calc(100vh - 70px);
-  width: 2560px;
-  min-height: calc(100vh - 600px);
+  min-height: 500px;
+  width: 100%;
 }
 
 .login-page {
-  width: 100%;
-  min-height: calc(100vh - 600px);
+  height: 80vh;
+  min-height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.login-block {
-  width: max-content;
-  min-height: max-content;
-  display: grid;
+  .login-block {
+    display: grid;
 
-  h1 {
-    text-align: center;
+    h1 {
+      text-align: center;
+      color: $light-inner-items-and-font;
+      font-weight: normal;
+      font-size: 32px;
+    }
+
+    img {
+      width: 100px;
+      justify-self: center;
+    }
+
+    a {
+      color: $refs;
+      text-decoration: none;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &-form-block {
+    width: 300px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    background-color: $inner-items;
+    border-radius: 10px;
     color: $light-inner-items-and-font;
-    font-weight: normal;
-    font-size: 32px;
-  }
 
-  img {
-    width: 100px;
-    justify-self: center;
-  }
+    input {
+      width: 274px;
+      height: 25px;
+      background-color: $outer-items;
+      border-radius: 5px;
+      border: 1px solid $dark-inner-items;
+      color: $light-inner-items-and-font;
+      margin: 2px 10px 2px 10px;
+      outline: none;
+      transition: 100ms border-color ease-out;
 
-  a {
-    left: 10px;
-    color: $refs;
-    text-decoration: none;
+      &:focus {
+        border-color: $light-inner-items-and-font;
+      }
+    }
 
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
+    button {
+      width: 280px;
+      height: 29px;
+      border-radius: 5px;
+      margin: 2px 10px 10px 10px;
+      border: 0;
+      background-color: $dark-inner-items;
+      color: $light-inner-items-and-font;
+      transition: all 600ms ease-out;
+
+      &:hover {
+        background-color: $light-inner-items-and-font;
+        color: $dark-inner-items;
+        cursor: pointer;
+      }
+    }
+
+    span {
+      margin: 15px;
+    }
+
+    div {
+      height: 70px;
+      margin-bottom: 10px;
     }
   }
 }
 
-.form-block {
-  width: 300px;
-  height: max-content;
-  padding-top: 20px;
-  padding-bottom: 10px;
-  background-color: $inner-items;
-  border-radius: 10px;
-  color: $light-inner-items-and-font;
+.chat-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
 
-  input {
-    width: 274px;
-    height: 25px;
+  aside {
+    height: calc(100vh - 100px);
+    border-radius: 10px;
     background-color: $outer-items;
-    border-radius: 5px;
-    border: 1px solid $dark-inner-items;
     color: $light-inner-items-and-font;
-    margin: 2px 10px 2px 10px;
-    outline: none;
-    transition: 100ms border-color ease-out;
+    margin: 20px 0 0 20px;
+    flex-basis: 400px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow-y: overlay;
+    overflow-x: hidden;
 
-    &:focus {
-      border-color: $light-inner-items-and-font;
-    }
-  }
-
-  button {
-    width: 280px;
-    height: 29px;
-    border-radius: 5px;
-    margin: 2px 10px 10px 10px;
-    border: 0;
-    background-color: $dark-inner-items;
-    color: $light-inner-items-and-font;
-    transition: all 800ms ease-out;
-
-    &:hover {
-      background-color: $light-inner-items-and-font;
-      color: $dark-inner-items;
+    .active-chat-selector,
+    .chat-selector {
+      height: 50px;
+      background-color: $inner-items;
+      font-weight: 700;
       cursor: pointer;
+      padding-left: 20px;
+      padding-top: 10px;
+      white-space: pre-wrap;
+
+      &:hover {
+        background-color: $dark-inner-items;
+      }
+    }
+
+    .active-chat-selector {
+      background-color: $light-inner-items-and-font;
+      color: black;
+
+      &:hover {
+        background-color: $light-inner-items-and-font;
+      }
+    }
+
+    .start-new-dialog-block {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      display: grid;
+      color: $refs;
+      text-align: center;
+
+      form {
+        display: grid;
+      }
+
+      div {
+        width: max-content;
+        justify-self: center;
+
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+
+      input {
+        background-color: $light-inner-items-and-font;
+        justify-self: center;
+        width: 300px;
+        border-radius: 4px;
+        border: 1px solid $dark-inner-items;
+        color: $dark-inner-items;
+        margin: 10px 10px 2px 10px;
+        outline: none;
+        transition: 100ms border-color ease-out;
+
+        &:focus {
+          border-color: $light-inner-items-and-font;
+        }
+
+        &::placeholder {
+          text-align: center;
+        }
+      }
     }
   }
 
-  span {
-    margin: 15px;
-  }
+  .chat-block {
+    height: calc(100vh - 100px);
+    width: 100%;
+    margin: 20px 20px 0 20px;
+    background-color: $outer-items;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: auto 50px;
 
-  div {
-    height: 70px;
-    margin-bottom: 10px;
+    .messages-block {
+
+    }
+
+    .chat-form {
+      display: flex;
+      width: 100%;
+      align-self: flex-end;
+      align-items: center;
+      background-color: $inner-items;
+      height: 50px;
+      border-radius: 0 0 10px 10px;
+
+      form {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      input {
+        width: 100%;
+        height: 20px;
+        margin: 0 10px 0 10px;
+        background-color: $inner-items;
+        border-radius: 4px;
+        border: 0;
+        color: $light-inner-items-and-font;
+        outline: none;
+        transition: 100ms border-color ease-out;
+      }
+
+      button {
+        margin: 0 10px 0 10px;
+        border: 0;
+        background-color: $inner-items;
+        color: $light-inner-items-and-font;
+        transform: scale(1);
+        cursor: none;
+
+
+        img {
+          width: 35px;
+          transition: transform 100ms ease-out;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .select-chat {
+      position: absolute;
+      justify-self: center;
+      align-self: center;
+      color: $light-inner-items-and-font;
+    }
   }
 }
 
@@ -145,6 +295,36 @@ $refs: #646cff;
 
 .error-input {
   border: 1px solid $error !important;
+}
+
+@media (max-width: 800px) {
+  .chat-page {
+    aside {
+      flex-basis: 200px;
+
+      .start-new-dialog-block {
+        input {
+          width: 150px;
+        }
+      }
+    }
+  }
+
+}
+
+@media (max-width: 400px) {
+  .chat-page {
+    aside {
+      flex-basis: 100px;
+
+      .start-new-dialog-block {
+        input {
+          width: 75px;
+        }
+      }
+    }
+  }
+
 }
 
 ::-webkit-scrollbar {

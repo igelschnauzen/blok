@@ -1,4 +1,4 @@
-import './App.css'
+import './App.scss'
 import {Outlet, useNavigate, useLocation} from "react-router-dom";
 import {FC, useEffect, useState} from "react"
 import signOut from './assets/sign-out.svg'
