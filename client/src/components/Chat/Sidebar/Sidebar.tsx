@@ -35,8 +35,8 @@ export const Sidebar: FC = (props: {
 
     return <aside>
         {chats?.map((c, i) => {
-            return <div>
-                <ChatSelector key={i} index={i} setActiveChat={props.setActiveChat} activeChatId={props.activeChat?.id}
+            return <div key={i}>
+                <ChatSelector index={i} setActiveChat={props.setActiveChat} activeChatId={props.activeChat?.id}
                               id={(c.members[0] !== JSON.parse(localStorage.getItem('user'))._id) ? c.members[0] : c.members[1]}/>
             </div>
 

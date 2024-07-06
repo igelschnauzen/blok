@@ -159,7 +159,7 @@ $refs: rgba(100, 108, 255);
     .chat-selector {
       height: 50px;
       background-color: $inner-items;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
       padding-left: 20px;
       padding-top: 10px;
@@ -230,9 +230,41 @@ $refs: rgba(100, 108, 255);
     border-radius: 10px;
     display: grid;
     grid-template-rows: auto 50px;
+    overflow-y: overlay;
+    overflow-x: hidden;
 
     .messages-block {
+      overflow-y: overlay;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: safe flex-end;
+      color: $light-inner-items-and-font;
 
+      .avgMessage,
+      .headMessage {
+        padding: 10px 10px 5px 10px;
+        font-weight: 400;
+        font-size: 15px;
+        grid-template-rows: 40px auto;
+        grid-template-columns: 40px auto;
+        grid-gap: 10px;
+
+        h3 {
+          margin: 0;
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background-color: $inner-items;
+        }
+      }
+
+      .avgMessage {
+        row-gap: 0;
+        padding: 5px 5px 5px 10px;
+      }
     }
 
     .chat-form {
@@ -333,6 +365,7 @@ $refs: rgba(100, 108, 255);
 
 ::-webkit-scrollbar-track {
   background: $inner-items;
+  border-radius: 10px 10px 0 0;
 }
 
 ::-webkit-scrollbar-thumb {

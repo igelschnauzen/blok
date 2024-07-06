@@ -29,3 +29,9 @@ interface UserChat {
     __v: 0
     _id: string
 }
+
+interface Message {
+    userName: string
+    text: string
+    isHeadMessage: boolean
+}
