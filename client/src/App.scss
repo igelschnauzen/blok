@@ -333,6 +333,11 @@ $refs: rgba(100, 108, 255);
   .chat-page {
     aside {
       flex-basis: 200px;
+      .active-chat-selector,
+      .chat-selector {
+        padding-left: 10px;
+        padding-top: 5px;
+      }
 
       .start-new-dialog-block {
         input {
@@ -348,6 +353,12 @@ $refs: rgba(100, 108, 255);
   .chat-page {
     aside {
       flex-basis: 100px;
+
+      .active-chat-selector,
+      .chat-selector {
+        padding-left: 5px;
+        padding-top: 5px;
+      }
 
       .start-new-dialog-block {
         input {

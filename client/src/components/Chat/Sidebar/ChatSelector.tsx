@@ -1,10 +1,14 @@
 import {useFindUserQuery} from "../../../API/loginApi";
 import {Dispatch, FC, SetStateAction} from "react";
+import {useLazyGetMessagesQuery} from "../../../API/messageApi";
 
-export const ChatSelector:FC = (props:{id: string, index: number, setActiveChat: Dispatch<SetStateAction<{id: number, name: string}>>, activeChatId: number}) => {
-    const {data: user, isFetching} = useFindUserQuery(props.id)
-    const getIsActiveChat = ():string => {
-        if (props.index === props.activeChatId) {
+export const ChatSelector: FC = (props: { userId: string, chatId: number, index: number, setActiveChat: Dispatch<SetStateAction<{ id: number, name: string }>>,
+    activeChat: { id: string, index: number, name: string, userId: string}, onConnect: any, setMessagesData: any }) => {
+    const {data: user, isFetching} = useFindUserQuery(props.userId)
+    const [getMessages] = useLazyGetMessagesQuery()
+
+    const getIsActiveChat = (): string => {
+        if (props.index === props.activeChat?.index) {
             return 'active-chat-selector'
         } else {
             return 'chat-selector'
@@ -15,5 +19,18 @@ export const ChatSelector:FC = (props:{id: string, index: number, setActiveChat:
         return <></>
     }
 
-    return <div className={getIsActiveChat()} onClick={() => props.setActiveChat({id: props.index, name: user.name})}>{user.name}</div>
+    return <div className={getIsActiveChat()} onClick={async () => {
+        props.onConnect()
+        props.setActiveChat({id: props.chatId, index: props.index, name: user.name, userId: props.userId})
+        const mData = await getMessages(props.chatId)
+        const initialMessagesData = mData.data.map((message, i) => {
+            return {
+                senderId: message.senderId,
+                text: message.text,
+                isHeadMessage: message.senderId !== mData.data[i - 1]?.senderId,
+                createdAt: message.createdAt
+            }
+        })
+        props.setMessagesData(initialMessagesData)
+    }}>{user.name}</div>
 }
