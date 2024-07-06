@@ -31,7 +31,7 @@ interface UserChat {
 }
 
 interface Message {
-    userName: string
+    senderId: string
     text: string
     isHeadMessage: boolean
 }

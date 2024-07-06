@@ -3,45 +3,70 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {Sidebar} from "./Sidebar/Sidebar";
 import send from '../../assets/send.svg'
 import {Message} from "./Message";
+import {socket} from "../../socket";
+import {useCreateMessageMutation} from "../../API/messageApi";
 
 export const Chat: FC = () => {
     const {
         register,
         handleSubmit,
         watch,
-        formState: {errors},
     } = useForm<MessageInput>()
 
     const [newChat, setNewChat] = useState(false)
-    const [activeChat, setActiveChat] = useState<{ id: number, name: string }>()
+    const [activeChat, setActiveChat] = useState<{ id: string, index: number, name: string, userId: string }>()
     const [messageLength, setMessageLength] = useState('')
     const selection = useRef(false)
-    const [messagesData, setMessagesData] = useState<Message[]>([{
-        userName: 'User',
-        text: 'Lorem ipsum dolor sit amet',
-        isHeadMessage: true
-    }, {userName: 'User', text: 'Lorem ipsum dolor sit amet', isHeadMessage: false}, {
-        userName: 'User',
-        text: 'Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet',
-        isHeadMessage: false
-    },])
+    const [messagesData, setMessagesData] = useState<Message[]>([])
     const inputRef = useRef<HTMLInputElement>(null)
+    const [createMessage] = useCreateMessageMutation()
 
     useEffect(() => {
-        window.addEventListener("mousedown", () => {
+        const onMouseDown = () => {
             setTimeout(() => {
                 if (window.getSelection().type === 'Range') {
                     selection.current = true
                 }
             }, 100)
-        })
-        window.addEventListener("click", () => {
+        }
+        const onClick = () => {
             if (window.getSelection().type !== 'Range') {
                 selection.current = false
                 inputRef.current.focus()
             }
-        })
+        }
+
+        window.addEventListener("mousedown", onMouseDown)
+        window.addEventListener("click", onClick)
+
+        return () => {
+            window.removeEventListener("mousedown", onMouseDown)
+            window.removeEventListener("click", onClick)
+        }
     }, [])
+
+    const onConnect = () => {
+        socket.emit('addNewUser', JSON.parse(localStorage.getItem('user'))._id)
+    }
+
+    useEffect(() => {
+        socket.on('getOnlineUsers', (data) => {
+            console.log('online users', data)
+        })
+    }, [socket]);
+
+    useEffect(() => {
+        const onGetMessage = (message) => {
+            const properMessage: Message = {senderId: message.senderId, text: message.text, isHeadMessage: message.senderId !== messagesData[messagesData.length - 1]?.senderId}
+            setMessagesData(prevState => [...prevState, properMessage])
+        }
+
+        socket.on('getMessage', onGetMessage)
+
+        return () => {
+            socket.off('getMessage', onGetMessage)
+        }
+    }, []);
 
     const {ref, ...restRegister} = register('message', {
             required: true,
@@ -64,7 +89,25 @@ export const Chat: FC = () => {
     }
 
     const onSubmit: SubmitHandler<MessageInput> = async (data) => {
-        console.log(data)
+        socket.emit('sendMessage', {
+            text: data.message,
+            recipientId: activeChat?.userId,
+            senderId: JSON.parse(localStorage.getItem('user'))._id,
+            chatId: activeChat?.id
+        })
+        const createMessageData = {
+            chatId: activeChat?.id,
+            senderId: JSON.parse(localStorage.getItem('user'))._id,
+            text: data.message
+        }
+        const uiMessageData = {
+            senderId: JSON.parse(localStorage.getItem('user'))._id,
+            text: data.message,
+            isHeadMessage: JSON.parse(localStorage.getItem('user'))._id !== messagesData[messagesData.length - 1]?.senderId
+        }
+        setMessagesData(prevState => [...prevState, uiMessageData])
+        inputRef.current.value = ''
+        await createMessage(createMessageData)
     }
 
     watch(data => setMessageLength(data.message))
@@ -73,15 +116,15 @@ export const Chat: FC = () => {
         {
             localStorage.getItem('user') &&
             <Sidebar inputRef={inputRef} newChat={newChat} setNewChat={setNewChat} activeChat={activeChat}
-                     setActiveChat={setActiveChat}/>
+                     setActiveChat={setActiveChat} onConnect={onConnect} setMessagesData={setMessagesData}/>
         }
 
         {
             activeChat ? <div className={'chat-block'}>
                 <div className={'messages-block'}>
                     {
-                        messagesData.map((message, i) => {
-                            return <Message key={i} userName={message.userName} text={message.text}
+                        messagesData?.map((message, i) => {
+                            return <Message key={i} senderId={message.senderId} text={message.text}
                                             isHeadMessage={message.isHeadMessage}/>
                         })
                     }

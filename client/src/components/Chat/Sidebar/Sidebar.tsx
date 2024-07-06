@@ -5,8 +5,8 @@ import {ChatSelector} from "./ChatSelector";
 
 export const Sidebar: FC = (props: {
     newChat: boolean, setNewChat: Dispatch<SetStateAction<boolean>>,
-    inputRef: HTMLInputElement, setActiveChat: Dispatch<SetStateAction<{ id: number, name: string }>>,
-    activeChat: { id: number, name: string }
+    inputRef: HTMLInputElement, setActiveChat: Dispatch<SetStateAction<{ id: string, index: number, name: string }>>,
+    activeChat: {id: string, index: number, name: string, userId: string}, onConnect: any, setMessagesData: any
 }) => {
     const {
         register,
@@ -36,8 +36,9 @@ export const Sidebar: FC = (props: {
     return <aside>
         {chats?.map((c, i) => {
             return <div key={i}>
-                <ChatSelector index={i} setActiveChat={props.setActiveChat} activeChatId={props.activeChat?.id}
-                              id={(c.members[0] !== JSON.parse(localStorage.getItem('user'))._id) ? c.members[0] : c.members[1]}/>
+                <ChatSelector index={i} setActiveChat={props.setActiveChat} activeChat={props.activeChat} chatId={c._id}
+                              userId={(c.members[0] !== JSON.parse(localStorage.getItem('user'))._id) ? c.members[0] : c.members[1]}
+                              onConnect={props.onConnect} setMessagesData={props.setMessagesData}/>
             </div>
 
         })}
