@@ -1,6 +1,6 @@
 const httpServer = require("http").createServer();
 const io = require("socket.io")(httpServer, {
-  cors: "http://localhost:5173"
+  cors: true,
 });
 
 let onlineUsers = [];
