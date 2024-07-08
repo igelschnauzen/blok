@@ -7,6 +7,14 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/*', function(req, res) {
+	res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
+	  if (err) {
+		res.status(500).send(err)
+	  }
+	})
+  })
+
 const port = 4000;
 
 app.listen(port, (req, res) => {
