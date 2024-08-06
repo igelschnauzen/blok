@@ -4,16 +4,17 @@ interface LoginAndRegistrationInputs {
     confirmPassword: string
 }
 
-interface Chat {
-    name: string
-}
-
 interface MessageInput {
     message: string
 }
 
 interface NewChatInput {
     newChat: string
+}
+
+interface Chat {
+    id: number
+    name: string
 }
 
 interface User {
@@ -34,4 +35,5 @@ interface Message {
     senderId: string
     text: string
     isHeadMessage: boolean
+    createdAt: string
 }
