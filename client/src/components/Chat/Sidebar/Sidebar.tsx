@@ -1,12 +1,13 @@
 import {useCreateChatMutation, useFindUserChatsQuery} from "../../../API/chatApi";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {Dispatch, FC, SetStateAction, useState} from "react";
+import {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
 import {ChatSelector} from "./ChatSelector";
 
 export const Sidebar: FC = (props: {
     newChat: boolean, setNewChat: Dispatch<SetStateAction<boolean>>,
     inputRef: HTMLInputElement, setActiveChat: Dispatch<SetStateAction<{ id: string, index: number, name: string }>>,
-    activeChat: {id: string, index: number, name: string, userId: string}, onConnect: any, setMessagesData: any
+    activeChat: {id: string, index: number, name: string, userId: string}, onConnect: () => void, setMessagesData: Dispatch<SetStateAction<Message[]>>,
+    onMouseDown: () => void, onClick: () => void
 }) => {
     const {
         register,
@@ -18,6 +19,32 @@ export const Sidebar: FC = (props: {
     const chats: UserChat[] = data
     const [serverError, setServerError] = useState('')
 
+    const addFocusEventListeners = () => {
+        window.addEventListener("mousedown", props.onMouseDown)
+        window.addEventListener("click", props.onClick)
+    }
+
+    const removeFocusEventListeners = () => {
+        window.removeEventListener("mousedown", props.onMouseDown)
+        window.removeEventListener("click", props.onClick)
+    }
+
+    const onAddNewDialogClick = () => {
+        if (props.newChat) {
+            addFocusEventListeners()
+        } else {
+            removeFocusEventListeners()
+        }
+        props.setNewChat(prevState => !prevState)
+        props.inputRef.current.focus()
+    }
+
+    useEffect(() => {
+        return () => {
+            removeFocusEventListeners()
+        }
+    }, [])
+
     const onSubmit: SubmitHandler<NewChatInput> = async (formData) => {
         const newChatData = {firstId: JSON.parse(localStorage.getItem('user'))._id, secondId: formData.newChat}
 
@@ -28,25 +55,23 @@ export const Sidebar: FC = (props: {
             props.setNewChat(false)
             props.inputRef.current.focus()
             await refetchUserChats()
+            location.reload()
         }
     }
 
     watch(() => setServerError(''))
 
     return <aside>
-        {chats?.map((c, i) => {
+        {chats?.map((chat, i) => {
             return <div key={i}>
-                <ChatSelector index={i} setActiveChat={props.setActiveChat} activeChat={props.activeChat} chatId={c._id}
-                              userId={(c.members[0] !== JSON.parse(localStorage.getItem('user'))._id) ? c.members[0] : c.members[1]}
+                <ChatSelector index={i} setActiveChat={props.setActiveChat} activeChat={props.activeChat} chatId={chat._id}
+                              userId={(chat.members[0] !== JSON.parse(localStorage.getItem('user'))._id) ? chat.members[0] : chat.members[1]}
                               onConnect={props.onConnect} setMessagesData={props.setMessagesData}/>
             </div>
 
         })}
         <div className={'start-new-dialog-block'}>
-            <div onClick={() => {
-                props.setNewChat(prevState => !prevState)
-                props.inputRef.current.focus()
-            }}>
+            <div onClick={onAddNewDialogClick}>
                 Start new dialog
             </div>
             {

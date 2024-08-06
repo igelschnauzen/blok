@@ -2,8 +2,8 @@ import {useFindUserQuery} from "../../../API/loginApi";
 import {Dispatch, FC, SetStateAction} from "react";
 import {useLazyGetMessagesQuery} from "../../../API/messageApi";
 
-export const ChatSelector: FC = (props: { userId: string, chatId: number, index: number, setActiveChat: Dispatch<SetStateAction<{ id: number, name: string }>>,
-    activeChat: { id: string, index: number, name: string, userId: string}, onConnect: any, setMessagesData: any }) => {
+export const ChatSelector: FC = (props: { userId: string, chatId: number, index: number, setActiveChat: Dispatch<SetStateAction<Chat>>,
+    activeChat: { id: string, index: number, name: string, userId: string}, onConnect: () => void, setMessagesData: Dispatch<SetStateAction<Message[]>> }) => {
     const {data: user, isFetching} = useFindUserQuery(props.userId)
     const [getMessages] = useLazyGetMessagesQuery()
 
