@@ -22,7 +22,7 @@ export const loginApi = createApi({
             query: (findUserData) => `find/${findUserData}`,
         }),
         getUsers: build.query({
-            query: (findUserData) => `/`,
+            query: () => `/`,
         }),
     }),
 })
