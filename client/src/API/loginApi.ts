@@ -21,7 +21,10 @@ export const loginApi = createApi({
         findUser: build.query({
             query: (findUserData) => `find/${findUserData}`,
         }),
+        getUsers: build.query({
+            query: (findUserData) => `/`,
+        }),
     }),
 })
 
-export const {useRegisterUserMutation, useLoginUserMutation, useFindUserQuery} = loginApi
+export const {useRegisterUserMutation, useLoginUserMutation, useFindUserQuery, useGetUsersQuery} = loginApi

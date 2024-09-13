@@ -4,6 +4,8 @@ import {FC, useEffect, useState} from "react"
 import signOut from './assets/sign-out.svg'
 import menu from './assets/menu.svg'
 import logo from './assets/logo.svg'
+import users from './assets/users.svg'
+import chats from './assets/chats.svg'
 import {Box, Drawer, List, ListItem, ListItemText} from "@mui/material";
 
 const App:FC = () => {
@@ -28,6 +30,7 @@ const App:FC = () => {
 
 const Header: FC = () => {
     const [open, setOpen] = useState(false)
+    const navigate = useNavigate()
     let DrawerList
     if (localStorage.getItem('user')) {
         DrawerList = (
@@ -36,10 +39,16 @@ const Header: FC = () => {
                     <h1>{JSON.parse(localStorage.getItem('user')).name}</h1>
                     <h2>id: {JSON.parse(localStorage.getItem('user'))._id}</h2>
                 </Box>
-                <Box sx={{width: 'auto', cursor: 'pointer', '&:hover': {bgcolor: 'rgba(48, 50, 49)',},}} role="presentation"
+                <Box sx={{width: 'auto', cursor: 'pointer',}} role="presentation"
                      onClick={() => setOpen(false)}>
                     <List>
-                        <ListItem onClick={() => {
+                        <ListItem sx={{'&:hover': {bgcolor: 'rgba(48, 50, 49)',},}} onClick={() => {
+                            navigate(location.pathname === '/' ? 'users' : '/')
+                        }}>
+                            {location.pathname === '/' ? < img src={users} alt={''} style={{marginRight: '10px'}}/> : < img src={chats} alt={''} style={{marginRight: '10px'}}/>}
+                            <ListItemText primary={location.pathname === '/' ? 'Users' : 'Chats'}/>
+                        </ListItem>
+                        <ListItem sx={{'&:hover': {bgcolor: 'rgba(48, 50, 49)',},}} onClick={() => {
                             localStorage.clear()
                             location.reload()
                         }}>

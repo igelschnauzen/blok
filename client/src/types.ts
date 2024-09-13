@@ -8,6 +8,10 @@ interface MessageInput {
     message: string
 }
 
+interface UsersInput {
+    users: string
+}
+
 interface NewChatInput {
     newChat: string
 }
@@ -18,9 +22,8 @@ interface Chat {
 }
 
 interface User {
-    _id: number
+    _id: string
     name: string
-    token: string
 }
 
 interface UserChat {
