@@ -35,8 +35,8 @@ export const Users: FC = () => {
                     <div>{user.name}</div>
                 </div>
                 <div>
-                    <div id={'_id'}>{user._id}<img src={copy} alt={'copy'} onClick={() => {
-                        navigator.clipboard.writeText(document.getElementById('_id').innerText)
+                    <div id={'otherId'}>{user._id}<img src={copy} alt={'copy'} onClick={() => {
+                        navigator.clipboard.writeText(document.getElementById('otherId').innerText)
                     }
                     }/></div>
 
