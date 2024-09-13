@@ -45,7 +45,7 @@ communication with an emphasis on speed and user privacy.
 
 ## Try it
 
-### on GH Pages
+### On website
 
 Messenger is deployed on http://5.35.100.88:4000/, so you can try it without
 installation
