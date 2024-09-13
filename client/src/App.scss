@@ -344,6 +344,9 @@ $refs: rgba(100, 108, 255);
         img {
           align-self: center;
           cursor: pointer;
+          &:active {
+            filter: invert(0.5);
+          }
         }
       }
     }
