@@ -1,20 +1,20 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const loginApi = createApi({
-    reducerPath: 'loginApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://5.35.100.88:3000/api/users'}),
+    reducerPath: "loginApi",
+    baseQuery: fetchBaseQuery({ baseUrl: "http://5.35.100.88:3000/api/users" }),
     endpoints: (build) => ({
         registerUser: build.mutation({
             query: (registrationData) => ({
-                url: '/register',
-                method: 'POST',
+                url: "/register",
+                method: "POST",
                 body: registrationData,
             }),
         }),
         loginUser: build.mutation({
             query: (loginData) => ({
-                url: '/login',
-                method: 'POST',
+                url: "/login",
+                method: "POST",
                 body: loginData,
             }),
         }),
@@ -22,9 +22,9 @@ export const loginApi = createApi({
             query: (findUserData) => `find/${findUserData}`,
         }),
         getUsers: build.query({
-            query: () => `/`,
+            query: () => ``,
         }),
     }),
 })
 
-export const {useRegisterUserMutation, useLoginUserMutation, useFindUserQuery, useGetUsersQuery} = loginApi
+export const { useRegisterUserMutation, useLoginUserMutation, useFindUserQuery, useGetUsersQuery } = loginApi

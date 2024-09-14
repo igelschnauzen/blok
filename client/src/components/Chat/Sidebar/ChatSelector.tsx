@@ -1,17 +1,26 @@
-import {useFindUserQuery} from "../../../API/loginApi";
-import {Dispatch, FC, SetStateAction} from "react";
-import {useLazyGetMessagesQuery} from "../../../API/messageApi";
+import { useFindUserQuery } from "../../../API/loginApi"
+import { Dispatch, FC, SetStateAction } from "react"
+import { useLazyGetMessagesQuery } from "../../../API/messageApi"
 
-export const ChatSelector: FC = (props: { userId: string, chatId: number, index: number, setActiveChat: Dispatch<SetStateAction<Chat>>,
-    activeChat: { id: string, index: number, name: string, userId: string}, onConnect: () => void, setMessagesData: Dispatch<SetStateAction<Message[]>> }) => {
-    const {data: user, isFetching} = useFindUserQuery(props.userId)
+interface ChatSelectorComponent {
+    userId: string
+    chatId: number
+    index: number
+    setActiveChat: Dispatch<SetStateAction<Chat>>
+    activeChat: Chat
+    onConnect: () => void
+    setMessagesData: Dispatch<SetStateAction<Message[]>>
+}
+
+export const ChatSelector: FC<ChatSelectorComponent> = (props) => {
+    const { data: user, isFetching } = useFindUserQuery(props.userId)
     const [getMessages] = useLazyGetMessagesQuery()
 
     const getIsActiveChat = (): string => {
         if (props.index === props.activeChat?.index) {
-            return 'active-chat-selector'
+            return "active-chat-selector"
         } else {
-            return 'chat-selector'
+            return "chat-selector"
         }
     }
 
@@ -19,18 +28,25 @@ export const ChatSelector: FC = (props: { userId: string, chatId: number, index:
         return <></>
     }
 
-    return <div className={getIsActiveChat()} onClick={async () => {
-        props.onConnect()
-        props.setActiveChat({id: props.chatId, index: props.index, name: user.name, userId: props.userId})
-        const mData = await getMessages(props.chatId)
-        const initialMessagesData = mData.data.map((message, i) => {
-            return {
-                senderId: message.senderId,
-                text: message.text,
-                isHeadMessage: message.senderId !== mData.data[i - 1]?.senderId,
-                createdAt: message.createdAt
-            }
-        })
-        props.setMessagesData(initialMessagesData)
-    }}>{user.name}</div>
+    return (
+        <div
+            className={getIsActiveChat()}
+            onClick={async () => {
+                props.onConnect()
+                props.setActiveChat({ id: props.chatId, index: props.index, name: user.name, userId: props.userId })
+                const mData = await getMessages(props.chatId)
+                const initialMessagesData = mData.data.map((message: Message, i: number) => {
+                    return {
+                        senderId: message.senderId,
+                        text: message.text,
+                        isHeadMessage: message.senderId !== mData.data[i - 1]?.senderId,
+                        createdAt: message.createdAt,
+                    }
+                })
+                props.setMessagesData(initialMessagesData)
+            }}
+        >
+            {user.name}
+        </div>
+    )
 }
