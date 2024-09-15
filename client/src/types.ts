@@ -18,7 +18,9 @@ interface NewChatInput {
 
 interface Chat {
     id: number
+    index: number
     name: string
+    userId: string
 }
 
 interface User {
@@ -31,7 +33,7 @@ interface UserChat {
     members: string[]
     updatedAt: string
     __v: 0
-    _id: string
+    _id: number
 }
 
 interface Message {
@@ -40,3 +42,7 @@ interface Message {
     isHeadMessage: boolean
     createdAt: string
 }
+
+////Components Props Types////
+
+interface MessageComponent {}
