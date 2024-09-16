@@ -1,0 +1,44 @@
+services:
+  server:
+    build: ./server
+    container_name: server
+    image: igelschnauzen/blok-server
+    ports: 
+      - 3000:3000
+    networks:
+      - blok-network
+
+  socket:
+    build: ./socket
+    image: igelschnauzen/blok-socket
+    container_name: socket
+    ports:
+      - 5000:5000
+    networks:
+      - blok-network
+  
+  db:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - db-data:/var/lib/mongodb/data
+    networks:
+      - blok-network
+    
+
+  client:
+    build: ./client
+    image: igelschnauzen/blok-client
+    container_name: client
+    ports:
+      - 80:80
+
+volumes:
+  db-data:
+    name: db-data
+
+networks:
+  blok-network:
+    driver: bridge
