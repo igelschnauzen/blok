@@ -4,6 +4,7 @@ import { useLoginUserMutation, useRegisterUserMutation } from "../../API/loginAp
 import logo from "../../assets/logo.svg"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import validator from "validator"
 
 export const Registration: FC = () => {
     const {
@@ -54,6 +55,8 @@ export const Registration: FC = () => {
             setPasswordLengthError("Minimum length is 8")
         } else if (data.password!.length > 1024) {
             setPasswordLengthError("Maximum length is 1024")
+        } else if (!validator.isStrongPassword(data.password!, { minSymbols: 0 }) && data.password!.length > 0) {
+            setPasswordLengthError("Password is not strong enough")
         } else {
             setPasswordLengthError("")
         }

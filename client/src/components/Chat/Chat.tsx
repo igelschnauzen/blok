@@ -10,7 +10,7 @@ export const Chat: FC = () => {
     const { register, handleSubmit, watch } = useForm<MessageInput>()
 
     const [newChat, setNewChat] = useState(false)
-    const [activeChat, setActiveChat] = useState<Chat>({ id: 0, index: 0, name: "", userId: "" })
+    const [activeChat, setActiveChat] = useState<Chat>()
     const [messageLength, setMessageLength] = useState("")
     const [doScroll, setDoScroll] = useState(false)
     const selection = useRef(false)

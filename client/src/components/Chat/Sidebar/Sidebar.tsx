@@ -7,8 +7,8 @@ interface SidebarComponent {
     newChat: boolean
     setNewChat: Dispatch<SetStateAction<boolean>>
     inputRef: RefObject<HTMLInputElement>
-    setActiveChat: Dispatch<SetStateAction<Chat>>
-    activeChat: Chat
+    setActiveChat: Dispatch<SetStateAction<Chat | undefined>>
+    activeChat: Chat | undefined
     onConnect: () => void
     setMessagesData: Dispatch<SetStateAction<Message[]>>
     onMouseDown: () => void
