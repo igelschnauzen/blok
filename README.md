@@ -46,9 +46,9 @@ an account, and finding companions are all streamlined for ease and efficiency.
 
 ### Features
 + **Database:** MongoDB
-+ **Encryption:** bcrypt library
-+ **Authentication:** JSON Web Tokens
-+ **Messaging:** WebSockets. 
++ **Encryption** with bcrypt library
++ **Authentication** through JSON Web Tokens
++ **Messaging** with WebSockets
 + **Containerization:** Docker images and docker-compose file
 
 ## Try it
