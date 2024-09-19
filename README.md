@@ -42,6 +42,7 @@ an account, and finding companions are all streamlined for ease and efficiency.
 + bcrypt
 + cors
 + jsonwebtoken
++ socket.io
 
 ### Features
 + **Database:** MongoDB
