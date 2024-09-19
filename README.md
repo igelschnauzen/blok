@@ -36,11 +36,19 @@ an account, and finding companions are all streamlined for ease and efficiency.
 
 ### Libraries used
 
-+ ...
++ Express
++ Mongoose
++ Validator
++ bcrypt
++ cors
++ jsonwebtoken
 
 ### Features
-
-+ **...** ...
++ **Database:** MongoDB
++ **Encryption:** bcrypt library
++ **Authentication:** JSON Web Tokens
++ **Messaging:** WebSockets. 
++ **Containerization:** Docker images and docker-compose file
 
 ## Try it
 
