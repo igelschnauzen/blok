@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDebounce } from "../../hooks/useDebounce"
-import copy from "../../assets/copy.svg"
 
 export const UsersList: FC<{ usersData: User[] }> = (props) => {
     const { register, watch } = useForm<UsersInput>()
@@ -32,16 +31,7 @@ export const UsersList: FC<{ usersData: User[] }> = (props) => {
                                 <div>{user.name}</div>
                             </div>
                             <div>
-                                <div id={"otherId"}>
-                                    {user._id}
-                                    <img
-                                        src={copy}
-                                        alt={"copy"}
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(document.getElementById("otherId")!.innerText)
-                                        }}
-                                    />
-                                </div>
+                                <div id={"otherId"}>{user._id}</div>
                             </div>
                         </div>
                     )

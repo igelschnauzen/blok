@@ -6,7 +6,6 @@ import menu from "./assets/menu.svg"
 import logo from "./assets/logo.svg"
 import users from "./assets/users.svg"
 import chats from "./assets/chats.svg"
-import copy from "./assets/copy.svg"
 import { Box, Drawer, List, ListItem, ListItemText } from "@mui/material"
 
 const App: FC = () => {
@@ -33,16 +32,7 @@ const App: FC = () => {
 
 const Header: FC = () => {
     const [open, setOpen] = useState(false)
-    const [isClick, setIsClick] = useState(false)
     const navigate = useNavigate()
-
-    const getStyle = () => {
-        if (isClick) {
-            return { width: "30px", cursor: "pointer", filter: "invert(0.5)" }
-        } else {
-            return { width: "30px", cursor: "pointer" }
-        }
-    }
 
     let DrawerList
     if (localStorage.getItem("user")) {
@@ -50,19 +40,7 @@ const Header: FC = () => {
             <Box>
                 <Box sx={{ padding: "16px" }}>
                     <h1>{JSON.parse(localStorage.getItem("user")!).name}</h1>
-                    <h2 style={{ display: "flex", alignItems: "center" }} id={"yourId"}>
-                        id: {JSON.parse(localStorage.getItem("user")!)._id}
-                        <img
-                            src={copy}
-                            alt={"copy"}
-                            style={getStyle()}
-                            onClick={() => {
-                                navigator.clipboard.writeText(document.getElementById("yourId")!.innerText.slice(4))
-                            }}
-                            onMouseDown={() => setIsClick(true)}
-                            onMouseUp={() => setIsClick(false)}
-                        />
-                    </h2>
+                    <h2 style={{ display: "flex", alignItems: "center" }}>id: {JSON.parse(localStorage.getItem("user")!)._id}</h2>
                 </Box>
                 <Box sx={{ width: "auto", cursor: "pointer" }} role="presentation" onClick={() => setOpen(false)}>
                     <List>
