@@ -15,8 +15,7 @@ const registerUser = async (req, res) => {
 
         if(user) return res.status(400).json("User already exists!");
         if(!name || !password) return res.status(400).json("All fields are required!");
-        if(password.length < 8) return res.status(400).json("Invalid password!");
-        //if(!validator.isStrongPassword(password)) return res.status(400).json("Invalid password!");
+        if(!validator.isStrongPassword(password)) return res.status(400).json("Invalid password!");
 
         //registration
         user = new userModel({name, password});
