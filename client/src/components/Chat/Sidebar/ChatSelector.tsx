@@ -6,8 +6,8 @@ interface ChatSelectorComponent {
     userId: string
     chatId: number
     index: number
-    setActiveChat: Dispatch<SetStateAction<Chat>>
-    activeChat: Chat
+    setActiveChat: Dispatch<SetStateAction<Chat | undefined>>
+    activeChat: Chat | undefined
     onConnect: () => void
     setMessagesData: Dispatch<SetStateAction<Message[]>>
 }

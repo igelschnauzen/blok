@@ -375,6 +375,14 @@ $refs: rgba(100, 108, 255);
             transition: 100ms border-color ease-out;
         }
     }
+
+    .no-users {
+        margin-top: 10px;
+        color: $light-inner-items-and-font;
+        display: flex;
+        justify-content: center;
+        font-weight: 600;
+    }
 }
 
 .error-text {

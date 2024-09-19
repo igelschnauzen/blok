@@ -1,15 +1,13 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const messageApi = createApi({
-    reducerPath: 'messageApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://95.183.12.121:3000/api/messages'}),
+    reducerPath: "messageApi",
+    baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_API_URL}:3000/api/messages` }),
     endpoints: (build) => ({
         createMessage: build.mutation({
             query: (createMessageData) => ({
-                url: '/',
-                method: 'POST',
+                url: "/",
+                method: "POST",
                 body: createMessageData,
             }),
         }),
@@ -19,4 +17,4 @@ export const messageApi = createApi({
     }),
 })
 
-export const {useCreateMessageMutation, useLazyGetMessagesQuery} = messageApi
+export const { useCreateMessageMutation, useLazyGetMessagesQuery } = messageApi
