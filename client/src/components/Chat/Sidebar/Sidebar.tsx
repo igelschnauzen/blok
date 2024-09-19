@@ -52,11 +52,12 @@ export const Sidebar: FC<SidebarComponent> = (props) => {
         const newChatData = { firstId: JSON.parse(localStorage.getItem("user")!)._id, secondId: formData.newChat }
 
         const response = await createNewChat(newChatData)
+
         if (response.error) {
             setServerError("Wrong id!")
         } else {
             props.setNewChat(false)
-            props.inputRef.current!.focus()
+            props.inputRef.current?.focus()
             await refetchUserChats()
             location.reload()
         }
