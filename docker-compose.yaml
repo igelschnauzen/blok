@@ -7,6 +7,8 @@ services:
       - 3000:3000
     networks:
       - blok-network
+    depends_on:
+      - db
 
   socket:
     build: ./socket
@@ -49,6 +51,11 @@ services:
       - 80:80
     networks:
       - blok-network
+    depends_on:
+      - server
+      - client
+      - socket
+      - db
 
 volumes:
   db-data:
