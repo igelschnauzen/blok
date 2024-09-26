@@ -37,14 +37,14 @@ services:
     networks:
       - blok-network
 
-    nginx:
-      build: ./nginx
-      image: igelschnauzen/blok-nginx
-      container_name: nginx
-      ports: 
-        - 80:80
-      networks:
-        - blok-network
+  nginx:
+    build: ./nginx
+    image: igelschnauzen/blok-nginx
+    container_name: nginx
+    ports: 
+      - 80:80
+    networks:
+      - blok-network
 
 volumes:
   db-data:
