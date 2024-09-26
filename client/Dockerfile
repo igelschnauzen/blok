@@ -13,7 +13,7 @@ RUN npm run build --loglevel verbose
 
 FROM nginx:stable-alpine
 
-EXPOSE 80
+EXPOSE 8000
 
 COPY nginx.conf/ /etc/nginx/nginx.conf
 
