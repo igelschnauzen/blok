@@ -33,7 +33,18 @@ services:
     image: igelschnauzen/blok-client
     container_name: client
     ports:
-      - 80:80
+      - 8000:8000
+    networks:
+      - blok-network
+
+    nginx:
+      build: ./nginx
+      image: igelschnauzen/blok-nginx
+      container_name: nginx
+      ports: 
+        - 80:80
+      networks:
+        - blok-network
 
 volumes:
   db-data:
