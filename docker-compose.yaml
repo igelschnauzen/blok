@@ -42,10 +42,6 @@ services:
   nginx:
     build: ./nginx
     image: igelschnauzen/blok-nginx
-    #-it
-    tty: true
-    stdin_open: true
-    command: sh
     container_name: nginx
     ports: 
       - 80:80
