@@ -8,7 +8,11 @@ const userRoutes = require("./routes/userroutes");
 const chatRoutes = require("./routes/chatroutes");
 const messageRoutes = require("./routes/messageroutes");
 
-app.use(cors());
+app.use(cors({
+	origin: "http://95.183.12.121",
+	maxAge: 86400
+}));
+
 app.use(express.json());
 
 app.use("/api/users", userRoutes);
