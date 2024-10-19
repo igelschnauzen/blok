@@ -50,7 +50,3 @@ an account, and finding companions are all streamlined for ease and efficiency.
 + **Authentication** through JSON Web Tokens
 + **Messaging** with WebSockets
 + **Containerization:** Docker images and docker-compose file
-
-## Try it
-
-Messenger is deployed on http://95.183.12.121:80/
