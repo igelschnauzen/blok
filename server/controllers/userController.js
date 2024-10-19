@@ -27,13 +27,7 @@ const registerUser = async (req, res) => {
         await user.save();
 
         const token = createToken(user._id); //jwt session
-        /*
-        res.set({
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": true
-        });
-        console.log(token);
-        */
+
         res.status(200).json({_id: user._id, name, token});
     } catch(error) {
         console.log(error);

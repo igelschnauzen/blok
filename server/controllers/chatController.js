@@ -2,6 +2,8 @@ const chatModel = require("../models/chatModel");
 
 const createChat = async(req, res) => {
     const {firstId, secondId} = req.body;
+    if(firstId === secondId) return res.status(400).json("You can't create chat with yourself");
+    if(firstId !== req.user["_id"] && secondId !== req.user["_id"]) return res.status(401).json("Unauthenticated");
 
     try {
         const chat = await chatModel.findOne({
@@ -24,6 +26,7 @@ const createChat = async(req, res) => {
 
 const findUserChats = async(req, res) => {
     const userId = req.params.userId;
+    if(userId !== req.user["_id"]) return res.status(401).json("Unauthenticated");
 
     try {
         const chats = await chatModel.find({
@@ -39,6 +42,7 @@ const findUserChats = async(req, res) => {
 
 const findChat = async(req, res) => {
     const {firstId, secondId}= req.params;
+    if(firstId !== req.user["_id"] && secondId !== req.user["_id"]) return res.status(401).json("Unauthenticated");
 
     try {
         const chat = await chatModel.findOne({

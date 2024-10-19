@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const protectedRoutes = require("./routes/protectedroutes");
 require("dotenv").config();
 
 const userRoutes = require("./routes/userroutes");
@@ -16,8 +17,8 @@ app.use(cors({
 app.use(express.json());
 
 app.use("/api/users", userRoutes);
-app.use("/api/chats", chatRoutes);
-app.use("/api/messages/", messageRoutes);
+app.use("/api/chats", protectedRoutes, chatRoutes);
+app.use("/api/messages/", protectedRoutes, messageRoutes);
 
 const port = process.env.port || 3000;
 const uri = process.env.MONGO_ADDRESS;
