@@ -12,7 +12,10 @@ const messageRoutes = require("./routes/messageroutes");
 app.use(cors({
 	origin: "http://95.183.12.121",
 	maxAge: 86400
-}));
+})); 
+
+//allow from everywhere:
+//app.use(cors());
 
 app.use(express.json());
 

@@ -1,7 +1,13 @@
 const chatModel = require("../models/chatModel");
+const userModel = require("../models/userModel");
 
 const createChat = async(req, res) => {
-    const {firstId, secondId} = req.body;
+    const {firstId, name} = req.body;
+
+    let secondId = await userModel.findOne({
+        name: name
+    })
+
     if(firstId === secondId) return res.status(400).json("You can't create chat with yourself");
     if(firstId !== req.user["_id"] && secondId !== req.user["_id"]) return res.status(401).json("Unauthenticated");
 
