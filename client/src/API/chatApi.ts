@@ -9,10 +9,14 @@ export const chatApi = createApi({
                 url: "/",
                 method: "POST",
                 body: createChatData,
+                headers: {Authorization: JSON.parse(localStorage.getItem("user")!).token}
             }),
         }),
         findUserChats: build.query({
-            query: (userId) => `/${userId}`,
+            query: (userId) => ({
+                url: `/${userId}`,
+                headers: {Authorization: JSON.parse(localStorage.getItem("user")!).token}
+            }),
         }),
     }),
 })

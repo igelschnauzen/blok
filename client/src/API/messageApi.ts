@@ -9,10 +9,14 @@ export const messageApi = createApi({
                 url: "/",
                 method: "POST",
                 body: createMessageData,
+                headers: {Authorization: JSON.parse(localStorage.getItem("user")!).token}
             }),
         }),
         getMessages: build.query({
-            query: (chatId) => `/${chatId}`,
+            query: (chatId) => ({
+                url: `/${chatId}`,
+                headers: {Authorization: JSON.parse(localStorage.getItem("user")!).token}
+            }),
         }),
     }),
 })

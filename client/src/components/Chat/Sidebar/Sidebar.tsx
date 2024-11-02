@@ -49,7 +49,7 @@ export const Sidebar: FC<SidebarComponent> = (props) => {
     }, [])
 
     const onSubmit: SubmitHandler<NewChatInput> = async (formData) => {
-        const newChatData = { firstId: JSON.parse(localStorage.getItem("user")!)._id, secondId: formData.newChat }
+        const newChatData = { firstId: JSON.parse(localStorage.getItem("user")!)._id, name: formData.newChat }
 
         const response = await createNewChat(newChatData)
 
@@ -86,7 +86,7 @@ export const Sidebar: FC<SidebarComponent> = (props) => {
                 <div onClick={onAddNewDialogClick}>Start new dialog</div>
                 {props.newChat && (
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <input className={serverError && "error-input"} placeholder={"write id"} {...register("newChat", { required: true })} />
+                        <input className={serverError && "error-input"} placeholder={"write name"} {...register("newChat", { required: true })} />
                         {serverError && <div className={"error-text"}>{serverError}</div>}
                     </form>
                 )}
