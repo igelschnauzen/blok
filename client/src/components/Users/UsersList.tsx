@@ -31,7 +31,7 @@ export const UsersList: FC<{ usersData: User[] }> = (props) => {
                                 <div>{user.name}</div>
                             </div>
                             <div>
-                                <div id={"otherId"}>{user._id}</div>
+                                <div></div>
                             </div>
                         </div>
                     )

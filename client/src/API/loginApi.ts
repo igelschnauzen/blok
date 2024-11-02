@@ -19,10 +19,16 @@ export const loginApi = createApi({
             }),
         }),
         findUser: build.query({
-            query: (findUserData) => `find/${findUserData}`,
+            query: (findUserData) => ({
+                url: `find/${findUserData}`,
+                headers: {Authorization: JSON.parse(localStorage.getItem("user")!).token}
+            }),
         }),
         getUsers: build.query({
-            query: () => ``,
+            query: () => ({
+                url: '',
+                headers: {Authorization: JSON.parse(localStorage.getItem("user")!).token}
+            }),
         }),
     }),
 })
