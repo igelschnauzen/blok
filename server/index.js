@@ -10,7 +10,7 @@ const chatRoutes = require("./routes/chatroutes");
 const messageRoutes = require("./routes/messageroutes");
 
 app.use(cors({
-	origin: "http://95.183.12.121",
+	origin: "", //frontend here
 	maxAge: 86400
 })); 
 
